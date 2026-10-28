@@ -20,7 +20,7 @@ public class VehicleInventoryApp {
         //create a variable to keep the menu looping
         boolean menuRunning = true;
 
-        //while loop to loop unitl the user exits.
+        //while loop to loop until the user exits.
         while (menuRunning) {
 
             //display the menu and store the selection
@@ -34,6 +34,14 @@ public class VehicleInventoryApp {
                 case 2:
                     listVehiclesByMakeModel(myScanner, inventory);
                     break;
+                case 3:
+                    break;
+                case 4:
+                    listVehiclesByColor(myScanner, inventory);
+                    break;
+                case 5:
+                    addVechicle(myScanner, inventory);
+                    break;
                 case 6:
                     menuRunning = false;
                     break;
@@ -43,8 +51,33 @@ public class VehicleInventoryApp {
             }
         }
     }
+    public static void addVechicle(Scanner myScanner, ArrayList<Vehicle> inventory){
 
-    //method to list all the inventory in the inventory.
+    }
+
+
+    //method to get car by the color.
+    public static void listVehiclesByColor( Scanner myScanner, ArrayList<Vehicle> inventory) {
+        System.out.println("What color car are you looking for");
+        String carTheyAreLookingFor = myScanner.nextLine();
+
+        boolean found = false;
+
+        for (Vehicle vehicle : inventory){
+            if (vehicle.getColors().equalsIgnoreCase(carTheyAreLookingFor.trim())){
+                System.out.println("=== Vehicle Details ===");
+                System.out.println(vehicle.getVehicle());
+                System.out.println(vehicle.getColors());
+                System.out.println("\n");
+
+                found = true;
+            }
+        }
+        if (!found)
+            System.out.println("We don't have vehicle of that color");
+    }
+
+        //method to list all the inventory in the inventory.
     public static void listAllInventory(ArrayList<Vehicle> inventory) {
         //list all the vehicles
         for (Vehicle vehicle : inventory) {
