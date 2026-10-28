@@ -20,7 +20,7 @@ public class VehicleInventoryApp {
         //create a variable to keep the menu looping
         boolean menuRunning = true;
 
-        //while loop to loop unitl the user exits.
+        //while loop to loop until the user exits.
         while (menuRunning) {
 
             //display the menu and store the selection
@@ -34,6 +34,14 @@ public class VehicleInventoryApp {
                 case 2:
                     listVehiclesByMakeModel(myScanner, inventory);
                     break;
+                case 3:
+                    break;
+                case 4:
+                    listVehiclesByColor(myScanner, inventory);
+                    break;
+                case 5:
+                    addVechicle(myScanner, inventory);
+                    break;
                 case 6:
                     menuRunning = false;
                     break;
@@ -44,7 +52,58 @@ public class VehicleInventoryApp {
         }
     }
 
-    //method to list all the inventory in the inventory.
+    //method to add a new Vechicle to the inventory.
+    public static void addVechicle(Scanner myScanner, ArrayList<Vehicle> inventory){
+        System.out.println("Enter vehicle ID:");
+        long vehicleId = myScanner.nextLong();
+
+        myScanner.nextLine(); //eats the line
+
+        System.out.println("Enter make/model:");
+        String makeModel = myScanner.nextLine();
+
+        System.out.println("Enter color:");
+        String color = myScanner.nextLine();
+
+        System.out.println("Enter odometer reading::");
+        int odometerReading = myScanner.nextInt();
+
+        System.out.println("Enter price:");
+        double price = myScanner.nextLong();
+
+        myScanner.nextLine(); //eats the line
+
+        //created a new vehicle
+        Vehicle newVehicle = new Vehicle(vehicleId, makeModel, color, odometerReading, price);
+
+        //add the vehicle to the inventory
+        inventory.add(newVehicle);
+
+        System.out.println("Vehicle was added successfully!!");
+    }
+
+    //method to get car by the color.
+    public static void listVehiclesByColor( Scanner myScanner, ArrayList<Vehicle> inventory) {
+        System.out.println("What color car are you looking for");
+        String carTheyAreLookingFor = myScanner.nextLine();
+
+        boolean found = false;
+
+        for (Vehicle vehicle : inventory){
+            if (vehicle.getColors().equalsIgnoreCase(carTheyAreLookingFor.trim())){
+                System.out.println("=== Vehicle Details ===");
+                System.out.println(vehicle.getVehicle());
+                System.out.println(vehicle.getColors());
+                System.out.println("\n");
+
+                found = true;
+            }
+        }
+        if (!found)
+            System.out.println("We don't have vehicle of that color");
+    }
+
+        //method to list all the inventory in the inventory.
     public static void listAllInventory(ArrayList<Vehicle> inventory) {
         //list all the vehicles
         for (Vehicle vehicle : inventory) {
@@ -94,7 +153,6 @@ public class VehicleInventoryApp {
 
         return menuSelection;
     }
-
 
     //method to get what is already in the inventory and return all the cars that in the inventory.
     public static ArrayList<Vehicle> getInventory() {
